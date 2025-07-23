@@ -68,11 +68,11 @@ const createStaff = async (req,res) => {
   };
 
   const staff = {
-    title: req.body.title,
-    publicationDate: req.body.publicationDate,
-    author: req.body.author,
-    description: req.body.description,
-    isbn: req.body.isbn
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    position: req.body.position,
+    hireDate: req.body.hireDate,
+    email: req.body.email
   };
   const response = await mongodb.getDatabase().db().collection('staff').insertOne(staff);
   if (response.acknowledged) {
@@ -104,11 +104,11 @@ const updateStaff = async (req,res) => {
 
   const staffId = ObjectId.createFromHexString(req.params.id);
   const staff = {
-    title: req.body.title,
-    publicationDate: req.body.publicationDate,
-    author: req.body.author,
-    description: req.body.description,
-    isbn: req.body.isbn
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    position: req.body.position,
+    hireDate: req.body.hireDate,
+    email: req.body.email
   };
   const response = await mongodb.getDatabase().db().collection('staff').replaceOne({ _id: staffId}, staff);
   if (response.modifiedCount > 0) {

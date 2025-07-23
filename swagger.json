@@ -214,19 +214,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "firstName": {
                   "example": "any"
                 },
-                "publicationDate": {
+                "lastName": {
                   "example": "any"
                 },
-                "author": {
+                "position": {
                   "example": "any"
                 },
-                "description": {
+                "hireDate": {
                   "example": "any"
                 },
-                "isbn": {
+                "email": {
                   "example": "any"
                 }
               }
@@ -290,19 +290,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "firstName": {
                   "example": "any"
                 },
-                "publicationDate": {
+                "lastName": {
                   "example": "any"
                 },
-                "author": {
+                "position": {
                   "example": "any"
                 },
-                "description": {
+                "hireDate": {
                   "example": "any"
                 },
-                "isbn": {
+                "email": {
                   "example": "any"
                 }
               }

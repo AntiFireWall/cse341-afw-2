@@ -76,7 +76,7 @@ const createStaff = async (req,res) => {
   };
   const response = await mongodb.getDatabase().db().collection('staff').insertOne(staff);
   if (response.acknowledged) {
-    res.status(204).send();
+    res.status(204).send('The staff member has been added to the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while creating a staff member.')
   };
@@ -112,7 +112,7 @@ const updateStaff = async (req,res) => {
   };
   const response = await mongodb.getDatabase().db().collection('staff').replaceOne({ _id: staffId}, staff);
   if (response.modifiedCount > 0) {
-    res.status(204).send();
+    res.status(204).send('The staff member information has been updated in the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while updating the staff member.')
   };
@@ -136,7 +136,7 @@ const deleteStaff = async (req,res) => {
   const staffId = ObjectId.createFromHexString(req.params.id);
   const response = await mongodb.getDatabase().db().collection('staff').deleteOne({ _id: staffId}, true);
   if (response.deletedCount > 0) {
-    res.status(204).send();
+    res.status(204).send('The staff member has been removed from the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while deleting a staff member.')
   };

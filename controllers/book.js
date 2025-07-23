@@ -47,7 +47,12 @@ const getSingle = async (req, res) => {
     .find({ _id: bookId });
   result.toArray().then((books) => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(books[0] || 'The provided id is not in the database.');
+    if (books.length !== 0) {
+      res.status(200).json(books[0]); 
+    } 
+    else {
+      res.status(400).json('The provided id is not in the database.');
+    }
   }).catch((err) => {
     res.status(500).json(err.withMessage('There has been an issue with the request.'));
   });
@@ -76,7 +81,7 @@ const createBook = async (req,res) => {
   };
   const response = await mongodb.getDatabase().db().collection('books').insertOne(book);
   if (response.acknowledged) {
-    res.status(204).send('Book added to the database.');
+    res.status(200).send('Book added to the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while creating a book.')
   };
@@ -112,7 +117,7 @@ const updateBook = async (req,res) => {
   };
   const response = await mongodb.getDatabase().db().collection('books').replaceOne({ _id: bookId}, book);
   if (response.modifiedCount > 0) {
-    res.status(204).send('The book information has been updated in the database.');
+    res.status(200).send('The book information has been updated in the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while updating the book.')
   };
@@ -136,7 +141,7 @@ const deleteBook = async (req,res) => {
   const bookId = ObjectId.createFromHexString(req.params.id);
   const response = await mongodb.getDatabase().db().collection('books').deleteOne({ _id: bookId}, true);
   if (response.deletedCount > 0) {
-    res.status(204).send('The book has been removed from the database.');
+    res.status(200).send('The book has been removed from the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while deleting a book.')
   };

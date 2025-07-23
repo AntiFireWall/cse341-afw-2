@@ -47,7 +47,12 @@ const getSingle = async (req, res) => {
     .find({ _id: staffId });
   result.toArray().then((staff) => {
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json(staff[0] || 'The provided id is not in the database.');
+    if (staff.length !== 0) {
+      res.status(200).json(staff[0]); 
+    } 
+    else {
+      res.status(400).json('The provided id is not in the database.');
+    }
   }).catch((err) => {
     res.status(500).json(err.withMessage('There has been an issue with the request.'));
   });
@@ -76,7 +81,7 @@ const createStaff = async (req,res) => {
   };
   const response = await mongodb.getDatabase().db().collection('staff').insertOne(staff);
   if (response.acknowledged) {
-    res.status(204).send('The staff member has been added to the database.');
+    res.status(200).send('The staff member has been added to the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while creating a staff member.')
   };
@@ -112,7 +117,7 @@ const updateStaff = async (req,res) => {
   };
   const response = await mongodb.getDatabase().db().collection('staff').replaceOne({ _id: staffId}, staff);
   if (response.modifiedCount > 0) {
-    res.status(204).send('The staff member information has been updated in the database.');
+    res.status(200).send('The staff member information has been updated in the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while updating the staff member.')
   };
@@ -136,7 +141,7 @@ const deleteStaff = async (req,res) => {
   const staffId = ObjectId.createFromHexString(req.params.id);
   const response = await mongodb.getDatabase().db().collection('staff').deleteOne({ _id: staffId}, true);
   if (response.deletedCount > 0) {
-    res.status(204).send('The staff member has been removed from the database.');
+    res.status(200).send('The staff member has been removed from the database.');
   } else {
     res.status(500).json(response.error || 'Some error occurred while deleting a staff member.')
   };

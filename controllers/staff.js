@@ -77,7 +77,9 @@ const createStaff = async (req,res) => {
     lastName: req.body.lastName,
     position: req.body.position,
     hireDate: req.body.hireDate,
-    email: req.body.email
+    email: req.body.email,
+    department: req.body.department,
+    employmentStatus: req.body.employmentStatus
   };
   const response = await mongodb.getDatabase().db().collection('staff').insertOne(staff);
   if (response.acknowledged) {
@@ -113,7 +115,9 @@ const updateStaff = async (req,res) => {
     lastName: req.body.lastName,
     position: req.body.position,
     hireDate: req.body.hireDate,
-    email: req.body.email
+    email: req.body.email,
+    department: req.body.department,
+    employmentStatus: req.body.employmentStatus
   };
   const response = await mongodb.getDatabase().db().collection('staff').replaceOne({ _id: staffId}, staff);
   if (response.modifiedCount > 0) {
@@ -156,7 +160,11 @@ const validateStaff = [
 
   body('hireDate').notEmpty().withMessage('Hire date is required').isISO8601().withMessage('Hire date must be a valid date (YYYY-MM-DD)'),
 
-  body('email').trim().notEmpty().withMessage('Email is required').isEmail().withMessage('Must be a valid email address').normalizeEmail()
+  body('email').trim().notEmpty().withMessage('Email is required').isEmail().withMessage('Must be a valid email address').normalizeEmail(),
+
+  body('department').trim().notEmpty().withMessage('Department is required'),
+
+  body('employmentStatus').trim().notEmpty().withMessage('Employment Status is required')
 ];
 
 module.exports = {

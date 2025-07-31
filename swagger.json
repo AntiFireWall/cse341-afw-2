@@ -247,6 +247,12 @@
                 },
                 "email": {
                   "example": "any"
+                },
+                "department": {
+                  "example": "any"
+                },
+                "employmentStatus": {
+                  "example": "any"
                 }
               }
             }
@@ -328,6 +334,12 @@
                   "example": "any"
                 },
                 "email": {
+                  "example": "any"
+                },
+                "department": {
+                  "example": "any"
+                },
+                "employmentStatus": {
                   "example": "any"
                 }
               }
